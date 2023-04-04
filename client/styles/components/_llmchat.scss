@@ -1,0 +1,43 @@
+.llmchat {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  background-color: $lighter;
+  border-left: 0.08333rem solid;
+}
+
+.llmchat__header {
+  padding-right: #{6 / $base-font-size}rem;
+  padding-left: #{19 / $base-font-size}rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: #{29 / $base-font-size}rem;
+  min-height: #{29 / $base-font-size}rem;
+  position: relative;
+}
+
+.llmchat__body {
+  padding-right: #{6 / $base-font-size}rem;
+  padding-left: #{19 / $base-font-size}rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  margin-top: auto;
+  gap: 10px;
+}
+
+.llmchat__title {
+  font-size: #{12 / $base-font-size}rem;
+  display: inline-block;
+  .sidebar--contracted & {
+    display: none;
+  }
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.llmchat__input {
+  margin-bottom: 10px;
+}

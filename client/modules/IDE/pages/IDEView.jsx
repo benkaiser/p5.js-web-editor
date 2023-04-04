@@ -5,9 +5,10 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { withTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
-import SplitPane from 'react-split-pane';
+import SplitPane, { Pane } from 'react-split-pane';
 import Editor from '../components/Editor';
 import Sidebar from '../components/Sidebar';
+import LLMChat from '../components/LLMChat';
 import PreviewFrame from '../components/PreviewFrame';
 import Toolbar from '../components/Toolbar';
 import Preferences from '../components/Preferences/index';
@@ -352,28 +353,31 @@ class IDEView extends React.Component {
                 />
                 <Console />
               </SplitPane>
-              <section className="preview-frame-holder">
-                <header className="preview-frame__header">
-                  <h2 className="preview-frame__title">
-                    {this.props.t('Toolbar.Preview')}
-                  </h2>
-                </header>
-                <div className="preview-frame__content">
-                  <div
-                    className="preview-frame-overlay"
-                    ref={(element) => {
-                      this.overlay = element;
-                    }}
-                  />
-                  <div>
-                    {((this.props.preferences.textOutput ||
-                      this.props.preferences.gridOutput) &&
-                      this.props.ide.isPlaying) ||
-                      this.props.ide.isAccessibleOutputPlaying}
+              <SplitPane primary="second" split="vertical" defaultSize="200px">
+                <section className="preview-frame-holder">
+                  <header className="preview-frame__header">
+                    <h2 className="preview-frame__title">
+                      {this.props.t('Toolbar.Preview')}
+                    </h2>
+                  </header>
+                  <div className="preview-frame__content">
+                    <div
+                      className="preview-frame-overlay"
+                      ref={(element) => {
+                        this.overlay = element;
+                      }}
+                    />
+                    <div>
+                      {((this.props.preferences.textOutput ||
+                        this.props.preferences.gridOutput) &&
+                        this.props.ide.isPlaying) ||
+                        this.props.ide.isAccessibleOutputPlaying}
+                    </div>
+                    <PreviewFrame cmController={this.cmController} />
                   </div>
-                  <PreviewFrame cmController={this.cmController} />
-                </div>
-              </section>
+                </section>
+                <LLMChat />
+              </SplitPane>
             </SplitPane>
           </SplitPane>
         </main>
